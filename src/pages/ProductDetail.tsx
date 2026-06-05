@@ -25,10 +25,10 @@ export function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showOrderForm, setShowOrderForm] = useState(pageData?.showOrder || false);
 
-  const product = useMemo(
-    () => products.find((p) => p.id === pageData?.productId),
-    [products, pageData]
-  );
+  const product = useMemo(() => {
+  if (!pageData?.productId) return null;
+  return products.find((p) => p.id === pageData.productId);
+}, [products, pageData]);
 
   // منتجات مشابهة
   const relatedProducts = useMemo(
@@ -41,7 +41,7 @@ export function ProductDetailPage() {
     [products, product]
   );
 
-  if (!product) {
+  if (!product || product.available === false) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -315,13 +315,13 @@ export function ProductDetailPage() {
       </div>
 
       {/* نموذج الطلب */}
-      {showOrderForm && product.available && (
-        <OrderForm
-          product={product}
-          quantity={quantity}
-          onClose={() => setShowOrderForm(false)}
-        />
-      )}
+      {showOrderForm && product.available !== false && (
+  <OrderForm
+    product={product}
+    quantity={quantity}
+    onClose={() => setShowOrderForm(false)}
+  />
+)}
     </div>
   );
 }
