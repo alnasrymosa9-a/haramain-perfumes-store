@@ -730,7 +730,7 @@ function OrdersManager() {
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-dark-400">سعر الوحدة</span>
-                        <span className="text-white">{order.unitPrice.toLocaleString('ar-YE')} ر.ي</span>
+                        <span className="text-gold-400 font-bold">{(order.totalPrice ?? 0).toLocaleString('ar-YE')} ر.ي</span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-dark-400">الإجمالي</span>
