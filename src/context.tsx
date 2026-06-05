@@ -123,7 +123,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             quantity: p.quantity || 0,
             mainImage: p.main_image || '',
             images: Array.isArray(p.images) ? p.images : [],
-            available: p.available !== false,
+            available: p.available ?? true,
             featured: p.featured === true,
             createdAt: p.created_at || new Date().toISOString(),
           })));
@@ -356,26 +356,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOrders(prev => prev.map(o => (o.id === id ? { ...o, status, updatedAt: new Date().toISOString() } : o)));
   };
 
-  const uploadImage = async (file: File, bucket: string, path: string): Promise<string> => {
-    if (!isSupabaseConfigured) {
-      return URL.createObjectURL(file);
-    }
-    try {
-      const { data, error } = await supabase.storage.from(bucket).upload(path, file, {
+  const uploadImage = async (
+  file: File,
+  bucket: string,
+  path: string
+): Promise<string> => {
+  if (!isSupabaseConfigured) {
+    return URL.createObjectURL(file);
+  }
+
+  try {
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .upload(path, file, {
         cacheControl: '3600',
         upsert: true,
       });
-      if (error) throw error;
-      if (data) {
-        const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(data.path);
-        return urlData.publicUrl;
-      }
-    } catch (err) {
-      console.error('Error uploading image:', err);
-      throw err;
-    }
-    return '';
-  };
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from(bucket)
+      .getPublicUrl(data.path);
+
+    return urlData.publicUrl;
+  } catch (err) {
+    console.error('Error uploading image:', err);
+
+    // 🔥 fallback حتى لا تختفي الصورة
+    return URL.createObjectURL(file);
+  }
+};
 
   const sendWhatsApp = useCallback((message: string) => {
     const encoded = encodeURIComponent(message);
