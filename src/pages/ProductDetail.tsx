@@ -315,7 +315,8 @@ export function ProductDetailPage() {
       </div>
 
       {/* نموذج الطلب */}
-      {showOrderForm && product.available !== false && (
+      {/* نموذج الطلب */}
+{showOrderForm && product.available && (
   <OrderForm
     product={product}
     quantity={quantity}
