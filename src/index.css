@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+/* ===== المتغيرات الأساسية ===== */
+@theme {
+  --color-gold-50: #fdf8e8;
+  --color-gold-100: #f9edc4;
+  --color-gold-200: #f0d78c;
+  --color-gold-300: #e6c054;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b8960e;
+  --color-gold-600: #8b6914;
+  --color-gold-700: #6b4f10;
+  --color-gold-800: #4c380b;
+  --color-gold-900: #2d2106;
+  --color-dark-50: #f5f5f5;
+  --color-dark-100: #e0e0e0;
+  --color-dark-200: #b0b0b0;
+  --color-dark-300: #808080;
+  --color-dark-400: #505050;
+  --color-dark-500: #303030;
+  --color-dark-600: #1a1a2e;
+  --color-dark-700: #16162a;
+  --color-dark-800: #0d0d1a;
+  --color-dark-900: #080812;
+  --font-family-cairo: 'Cairo', sans-serif;
+  --font-family-amiri: 'Amiri', serif;
+}
+
+/* ===== الأنماط الأساسية ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background-color: #080812;
+  color: #f5f5f5;
+  direction: rtl;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== تأثيرات زجاجية ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass-dark {
+  background: rgba(8, 8, 18, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+/* ===== تدرجات ذهبية ===== */
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37, #f0d78c, #d4af37);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #d4af37, #f0d78c, #b8960e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #d4af37 0%,
+    #f0d78c 25%,
+    #d4af37 50%,
+    #f0d78c 75%,
+    #d4af37 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ===== خلفية فاخرة ===== */
+.luxury-bg {
+  background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(139, 105, 20, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #080812 0%, #0d0d1a 50%, #080812 100%);
+}
+
+/* ===== بطاقة المنتج ===== */
+.product-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15),
+    0 0 30px rgba(212, 175, 55, 0.05);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.08);
+}
+
+.product-image {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== زر ذهبي ===== */
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37, #b8960e);
+  color: #080812;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #f0d78c, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-gold-outline {
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.btn-gold-outline:hover {
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* ===== شريط التمرير ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080812;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #8b6914);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f0d78c, #d4af37);
+}
+
+/* ===== تأثيرات النص ===== */
+.text-shadow-gold {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3),
+    0 0 40px rgba(212, 175, 55, 0.1);
+}
+
+/* ===== أنماط خاصة بالجوال ===== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem !important;
+  }
+}
+
+/* ===== تحريك التحميل ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
+
+/* ===== تأثير الخط الذهبي المتحرك ===== */
+.gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+/* ===== أنماط المودال ===== */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+/* ===== Placeholder صورة ===== */
+.img-placeholder {
+  background: linear-gradient(135deg, #1a1a2e, #0d0d1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  font-size: 3rem;
+}
+
+/* ===== أنماط القوائم المنسدلة ===== */
+select option {
+  background-color: #0d0d1a;
+  color: #f5f5f5;
+  padding: 8px;
+}
+
+select option:hover,
+select option:checked {
+  background-color: #d4af37;
+  color: #080812;
+}
+
+/* ===== أنماط الحقول في الوضع الداكن ===== */
+input::placeholder,
+textarea::placeholder {
+  color: #505050;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.05);
+}
+
+/* ===== خط فاصل ذهبي متحرك ===== */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+/* ===== تحسين الأداء - تأخير تحميل الصور ===== */
+img {
+  content-visibility: auto;
+}
+
+/* ===== تأثير الظهور عند التمرير ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
