@@ -366,7 +366,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   try {
-    const { data, error } = await supabase.storage
+    const uploadImage = async (
+  file: File,
+  bucket: string,
+  path: string
+): Promise<string> => {
+  if (!isSupabaseConfigured) {
+    return URL.createObjectURL(file);
+  }
+
+  try {
+    const { error } = await supabase.storage
       .from(bucket)
       .upload(path, file, {
         cacheControl: '3600',
@@ -375,15 +385,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     if (error) throw error;
 
-    const { data: urlData } = supabase.storage
+    // 🔥 مهم: استخدم نفس path وليس data.path
+    const { data } = supabase.storage
       .from(bucket)
-      .getPublicUrl(data.path);
+      .getPublicUrl(path);
 
-    return urlData.publicUrl;
+    return data.publicUrl;
   } catch (err) {
     console.error('Error uploading image:', err);
 
-    // 🔥 fallback حتى لا تختفي الصورة
+    // fallback
     return URL.createObjectURL(file);
   }
 };
